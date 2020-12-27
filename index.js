@@ -23,6 +23,22 @@ ready(()=> {
     Velato.output = (params) => {
         document.getElementById("out").innerText = params;
     };
+    const originalAsintFunc = Velato.Note.prototype.asInt;
+    const replacedAsIntFunc = function(rootNote, changed) {
+        var distance, int, intervalTable;
+        distance = this.semitoneDistance(rootNote);
+        /*
+         * In the Root of C
+         * c#  d  d# e f f# g g# a a# b
+         * 0   1  2  3 4 5  - 6  7 8  9
+         */
+        intervalTable =  ["Perfect Prime", "Minor Second", "Major Second", "Minor Third", "Major Third", "Perfect Fourth", "Augmented Fourth, Diminished Fifth", "Minor Sixth", "Major Sixth", "Minor Seventh"];
+        int = intervalTable.indexOf(distance.interval);
+        if (int === -1) {
+            return null;
+        }
+        return int;
+    };
     for (const form of document.forms) {
         const setError = str => {
             inError.innerText = str;
@@ -35,6 +51,7 @@ ready(()=> {
             document.getElementById("out").innerText = "";
 			e.preventDefault();
             e.stopPropagation();
+            Velato.Note.prototype.asInt = (form.changeRoot.checked) ? replacedAsIntFunc : originalAsintFunc;
             try {
                 const re = Velato.compileJS(form.in.value);
                 if (re === "" || re === ";") {

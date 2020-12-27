@@ -16,18 +16,36 @@ function ready(loaded) {
 	}
 }
 ready(()=> {
-    const in_ = document.getElementById("in");
+    const inError = document.getElementById("inError");
+	const clearServerError = () => {
+		inError.innerText = "";
+	};
     Velato.output = (params) => {
         document.getElementById("out").innerText = params;
     };
     for (const form of document.forms) {
+        const setError = str => {
+            inError.innerText = str;
+            form.in.setCustomValidity(str);
+        };
 		form.addEventListener("submit", e => {
+            clearServerError();
+            form.in.setCustomValidity("");
+            form.classList.add("was-validated");
+            document.getElementById("out").innerText = "";
 			e.preventDefault();
             e.stopPropagation();
-            console.log(form.in.value);
-            const re = Velato.compileJS(form.in.value);
-            eval(re);
-            console.log(re);
+            try {
+                const re = Velato.compileJS(form.in.value);
+                if (re === "" || re === ";") {
+                    setError("なぜかは分かりませんが、エラーが起きたことは確かです。");
+                } else {
+                    eval(re);
+                }
+            } catch (e) {
+                setError(e.message)
+                throw e;
+            }
 		});
 	}
 })

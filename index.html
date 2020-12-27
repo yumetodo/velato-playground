@@ -41,12 +41,17 @@
   </head>
   <body>
     <div class="container">
+      <h1>velato-playground</h1>
+      <p>楽譜でプログラミングするプログラミング言語<a href="https://esolangs.org/wiki/Velato">Velato</a>の処理系<a href="https://github.com/eerwitt/velato-js">velato-js</a>をブラウザ上で動かします</p>
       <form id="main" novalidate>
         <div class="form-group">
+          <label for="in">Velato のコードを入力</label>
           <textarea id="in" class="form-control"></textarea>
+          <small id="inHelpBlock" class="form-text text-muted">例: <code>C A G E E# A D# G</code></small>
         </div>
         <button type="submit" id="fire" class="btn btn-primary">実行</button>
       </form>
+      <h2>実行結果</h2>
       <div id="out" class="box1"></div>
     </div>
   </body>

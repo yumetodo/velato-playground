@@ -1,0 +1,3 @@
+[submodule "velato-js"]
+	path = velato-js
+	url = https://github.com/eerwitt/velato-js.git

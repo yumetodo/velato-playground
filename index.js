@@ -30,7 +30,7 @@ ready(()=> {
         /*
          * In the Root of C
          * c#  d  d# e f f# g g# a a# b
-         * 0   1  2  3 4 5  - 6  7 8  9
+         * 1   2  3  4 5 6  - 7  8 9  10
          */
         intervalTable =  ["Perfect Prime", "Minor Second", "Major Second", "Minor Third", "Major Third", "Perfect Fourth", "Augmented Fourth, Diminished Fifth", "Minor Sixth", "Major Sixth", "Minor Seventh"];
         int = intervalTable.indexOf(distance.interval);
